@@ -1,14 +1,15 @@
 {
   "name": "@zgok-api/zgok-axios",
   "description": "This is the Axios module for zod-api. zgok-api is an API developed in TypeScript for both front-end and back-end, ensuring safe request and response code through schema definitions using zod.",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "main": "lib/index.js",
   "scripts": {
     "build": "tsc",
-    "test": "jest"
+    "test": "jest",
+    "test:w": "jest --watch"
   },
   "dependencies": {
-    "@zgok-api/zgok-core": "^0.0.15",
+    "@zgok-api/zgok-core": "^0.0.16",
     "axios": "^1"
   },
   "devDependencies": {
