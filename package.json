@@ -9,7 +9,7 @@
     "test:w": "jest --watch"
   },
   "dependencies": {
-    "@zgok-api/zgok-core": "^0.0.16",
+    "@zgok-api/zgok-core": "^0.0.17",
     "axios": "^1"
   },
   "devDependencies": {
