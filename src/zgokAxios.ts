@@ -1,7 +1,18 @@
-import { ZgokConfig, ZgokMethod } from "@zgok-api/zgok-core";
+import {
+  ZgokConfig,
+  ZgokMethodReq,
+  ZgokMethodRes,
+  ZgokSchema,
+} from "@zgok-api/zgok-core";
 import { AxiosHeaderValue, AxiosInstance } from "axios";
+import type { z } from "zod";
 
 type Opts = { headers?: { [key: string]: AxiosHeaderValue } };
+
+/** req スキーマがあれば (data, opts?)、無ければ (opts?) で呼べる */
+type Args<S extends ZgokSchema> = S extends { req: z.ZodType<any> }
+  ? [data: ZgokMethodReq<S>, opts?: Opts]
+  : [opts?: Opts];
 
 const actions = {
   get: (axios: AxiosInstance, url: string, data: any, opts?: Opts) => {
@@ -33,9 +44,8 @@ export function ZgokAxios<T extends ZgokConfig>(
 ): {
   [N in keyof T]: {
     [K in keyof T[N]]: (
-      data: ZgokMethod<T[N][K]>["req"],
-      opts?: Opts
-    ) => Promise<ZgokMethod<T[N][K]>["res"]>;
+      ...args: Args<T[N][K]>
+    ) => Promise<ZgokMethodRes<T[N][K]>>;
   };
 } {
   const apiMethods: any = {};
@@ -43,8 +53,12 @@ export function ZgokAxios<T extends ZgokConfig>(
     apiMethods[namespace] = {};
     for (const key in apiConfig[namespace]) {
       const config = apiConfig[namespace][key];
-      apiMethods[namespace][key] = async (reqData: any, opts?: Opts) => {
-        const reqParsed = config.req.parse(reqData);
+      apiMethods[namespace][key] = async (...args: any[]) => {
+        // req が無い API は第1引数が opts
+        const [reqData, opts]: [any, Opts | undefined] = config.req
+          ? [args[0], args[1]]
+          : [undefined, args[0]];
+        const reqParsed = config.req ? config.req.parse(reqData) : undefined;
         const { data: resData } = await actions[config.method](
           axios,
           `${namespace}/${key}`,

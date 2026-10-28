@@ -32,6 +32,10 @@ export const SampleSchema = {
       req: z.object({ key: z.string() }),
       res: z.object({ kind: z.object({ name: z.string() }) }),
     }),
+    // req can be omitted when the endpoint takes no input
+    list: getFunction({
+      res: z.array(z.object({ id: z.number() })),
+    }),
   },
 };
 ```
@@ -62,5 +66,11 @@ const hoge1 = async () => {
   // const res = await zgokAxios.dir1.hoge1({ id: 1 }, {headers:  { Authorization: "Bearer token123" }});
 
   console.log("res", res);
+};
+
+const list = async () => {
+  // no req schema -> call with no arguments (or with { headers } only)
+  const items = await zgokAxios.dir2.list();
+  console.log("items", items);
 };
 ```
