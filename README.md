@@ -42,7 +42,7 @@ npm install --save @zgok-api/zgok-axios axios zod
 or
 yarn add @zgok-api/zgok-axios axios zod
 
-`axios` and `zod` are peerDependencies, so install them in your project. The same `zod` instance is then shared with your schema definitions.
+`axios` and `zod` (v4) are peerDependencies, so install them in your project. The same `zod` instance is then shared with your schema definitions.
 
 zgok-axios generates functions from zgokSchema to handle axios processes.
 Both requests and responses are validated by zod.
