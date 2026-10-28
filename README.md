@@ -2,7 +2,9 @@ zgok-api is an API developed in TypeScript for both front-end and back-end, ensu
 
 # Usage
 
-npm install --save zgok-core zgok-axios
+npm install --save @zgok-api/zgok-core zod
+or
+yarn add @zgok-api/zgok-core zod
 
 ## Creating Schemas
 
@@ -36,8 +38,11 @@ export const SampleSchema = {
 
 ## Frontend Setup
 
-npm install --save zgok-axios
-yarn add zgok-axios
+npm install --save @zgok-api/zgok-axios axios zod
+or
+yarn add @zgok-api/zgok-axios axios zod
+
+`axios` and `zod` are peerDependencies, so install them in your project. The same `zod` instance is then shared with your schema definitions.
 
 zgok-axios generates functions from zgokSchema to handle axios processes.
 Both requests and responses are validated by zod.

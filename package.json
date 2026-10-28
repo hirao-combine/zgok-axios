@@ -14,14 +14,19 @@
     "test:w": "jest --watch"
   },
   "dependencies": {
-    "@zgok-api/zgok-core": "^0.0.17",
-    "axios": "^1"
+    "@zgok-api/zgok-core": "^0.0.17"
+  },
+  "peerDependencies": {
+    "axios": "^1",
+    "zod": "^3.0.0"
   },
   "devDependencies": {
     "@types/jest": "^29.5.12",
+    "axios": "^1",
     "axios-mock-adapter": "^1.22.0",
     "ts-jest": "^29.2.2",
-    "typescript": "^5"
+    "typescript": "^5",
+    "zod": "^3.23.6"
   },
   "repository": {
     "type": "git",
