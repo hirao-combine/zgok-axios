@@ -14,7 +14,7 @@
     "test:w": "jest --watch"
   },
   "dependencies": {
-    "@zgok-api/zgok-core": "^0.0.17"
+    "@zgok-api/zgok-core": "^0.1.0"
   },
   "peerDependencies": {
     "axios": "^1",
